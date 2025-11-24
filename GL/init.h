@@ -17,15 +17,15 @@
 //#include "sphere/sphere.h"
 //#include "skybox/skybox.h"
 //#include "landscape/landscape.h"
-#include "base2d/base2d.h"
-#include "camera/camera.h"
+//#include "base2d/base2d.h"
+//#include "camera/camera.h"
 //#include "defines.h"
 //#include "fileutils/fileutil.h"
 //#include "objectclasses/object.h"
-#include "projection/projection.h"
-#include "textrenderer/textrender.h"
-#include "baseobject/baseobject.h"
-#include "menu/menu.h"
+//#include "projection/projection.h"
+//#include "textrenderer/textrender.h"
+//#include "baseobject/baseobject.h"
+//#include "menu/menu.h"
 //#include "meshobject/meshobject.h"
 //#include "objloader/objloader.h"
 //#include "textedit/textedit.h"
@@ -48,7 +48,7 @@ class Init
 {
 public:
     Init( std::string titel = "OpenGL");
-    Init(const InitGL& orig);
+    Init(const Init& orig);
 
 
     // test
@@ -62,7 +62,7 @@ public:
     virtual void Quit();
     // Methode zum abbrechen
     void sdl_die( std::string msg);
-    virtual ~InitGL();
+    virtual ~Init();
 
     virtual void Prepare2D(); // Flags für Rendern einstellen
     virtual void Restore3D(); // Flags zurücksetzen

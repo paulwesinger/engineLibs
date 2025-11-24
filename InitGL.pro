@@ -12,14 +12,22 @@ CONFIG += c++17
 SOURCES += \
     Defaults/defaults.cpp \
     GL/init.cpp \
-    initgl.cpp
+    error/error.cpp \
+    fileutils/fileutil.cpp \
+    initgl.cpp \
+    shaders/shader.cpp \
+    utils/utils.cpp
 
 HEADERS += \
     Defaults/defaults.h \
     Defaults/defines.h \
     GL/init.h \
     InitGL_global.h \
-    initgl.h
+    error/error.h \
+    fileutils/fileutil.h \
+    initgl.h \
+    shaders/shader.h \
+    utils/utils.h
 
 # Default rules for deployment.
 unix {
