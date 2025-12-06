@@ -10,24 +10,40 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    Base/base.cpp \
     Defaults/defaults.cpp \
     GL/init.cpp \
+    base2d/base2d.cpp \
+    baseobject/baseobject.cpp \
+    camera/camera.cpp \
     error/error.cpp \
     fileutils/fileutil.cpp \
+    imageloader/loadimage.cpp \
     initgl.cpp \
+    lights/light.cpp \
+    projection/projection.cpp \
     shaders/shader.cpp \
-    utils/utils.cpp
+    utils/utils.cpp \
+    vecmath/vecmath.cpp
 
 HEADERS += \
+    Base/base.h \
     Defaults/defaults.h \
-    Defaults/defines.h \
     GL/init.h \
     InitGL_global.h \
+    base2d/base2d.h \
+    baseobject/baseobject.h \
+    camera/camera.h \
+    defines.h \
     error/error.h \
     fileutils/fileutil.h \
+    imageloader/loadimage.h \
     initgl.h \
+    lights/light.h \
+    projection/projection.h \
     shaders/shader.h \
-    utils/utils.h
+    utils/utils.h \
+    vecmath/vecmath.h
 
 # Default rules for deployment.
 unix {
@@ -62,3 +78,6 @@ else:unix: LIBS += -L$$PWD/../libs/Logger/ -lLogger
 
 INCLUDEPATH += $$PWD/../includes
 DEPENDPATH += $$PWD/../includes
+
+INCLUDEPATH += $$PWD/../../../../usr/include/glm
+DEPENDPATH += $$PWD/../include/glm

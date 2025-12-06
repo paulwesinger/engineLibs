@@ -4,14 +4,14 @@
 #include "InitGL_global.h"
 #include "GL/init.h"
 
-class INITGL_EXPORT InitGL
+class INITGL_EXPORT InitGL :public Init
 {
 public:
 
     InitGL();
 
 protected:
-    void InitGL() override;
+    //void InitGL() override;
 
 
 };

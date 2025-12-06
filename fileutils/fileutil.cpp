@@ -12,10 +12,9 @@
 #include <cstdio>
 #include "fileutil.h"
 #include "utils/utils.h"
-#include "logger.h"
+
 using namespace std;
 
-Logger logger;
 const int MAXLINES = 100;
 
 fileUtil::fileUtil() {

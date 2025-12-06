@@ -5,6 +5,7 @@
 #include <string>
 #include <cstdio>
 #include "fileutils/fileutil.h"
+#include <logger.h>
 
 class Shader
 {
@@ -47,6 +48,8 @@ protected:
 
     //Shaders for 3D
     GLuint _TextureShader3D,_ColorShader3D,_LightShader3D, _LightShaderColor3D, _GlasShader3D;
+
+    Logger logger;
 
 private:
 

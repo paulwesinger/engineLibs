@@ -4,7 +4,7 @@
 #include <iostream>
 #include <cstdio>>
 #include <string>
-#include "logger.h"
+
 #include "error/error.h"
 
 //--------------------------------------------------------------------
@@ -401,7 +401,6 @@ const GLchar * Standard3DGLasshader_Fragmentsrc = {
 "    }                                                                                  \n"
 };
 
-Logger logger;
 
 Shader::Shader()
 {

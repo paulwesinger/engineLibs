@@ -11,6 +11,7 @@
 #include <fstream>
 #include <string>
 #include <vector>
+#include <logger.h>
 
 
 class fileUtil {
@@ -26,6 +27,8 @@ public:
     void clear();
     std::string Parse(std::string line, std::string delString,std::string spacestring= " ");
     int ParseToint(std::string line, std::string delString,std::string spacestring= " ");
+
+    Logger logger;
 private:
 
     std::string filename;   // globaler  Dateiname

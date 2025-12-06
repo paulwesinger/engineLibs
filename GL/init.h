@@ -4,37 +4,19 @@
 #include <cstdio>
 #include <cstdlib>
 #include <string>
-
+#include <stdint.h>
 #include <glew.h>
 #include <SDL.h>
 #include <map>
-//#include <irrklang/irrKlang.h>
-#include <logger.h>"
+#include <logger.h>
 // #include "utils/utils.h"   --> ersetzen durch Converter
 #include "shaders/shader.h"
-//#include "cube/cube.h"
-//#include "cube/colorcube.h"
-//#include "sphere/sphere.h"
-//#include "skybox/skybox.h"
-//#include "landscape/landscape.h"
-//#include "base2d/base2d.h"
-//#include "camera/camera.h"
-//#include "defines.h"
-//#include "fileutils/fileutil.h"
-//#include "objectclasses/object.h"
-//#include "projection/projection.h"
-//#include "textrenderer/textrender.h"
-//#include "baseobject/baseobject.h"
-//#include "menu/menu.h"
-//#include "meshobject/meshobject.h"
-//#include "objloader/objloader.h"
-//#include "textedit/textedit.h"
-//#include "buttons/button.h"
-//#include "lights/light.h"
-//#include "cockpit/cockpit.h"
-//#include "particleengine/partikelengine.h"
-//#include "3DLoader/load3ds.h"
-
+#include "base2d/base2d.h"
+#include "camera/camera.h"
+#include "defines.h"
+#include "defaults.h"
+#include "projection/projection.h"
+#include "baseobject/baseobject.h"
 
 // static flags for handler in derrived classes
 extern bool _ShowSkybox;
@@ -50,8 +32,6 @@ public:
     Init( std::string titel = "OpenGL");
     Init(const Init& orig);
 
-
-    // test
     void setRootPath(std::string path);
     // Create Context and Init SDL2
     bool InitSDL2();
@@ -66,46 +46,38 @@ public:
 
     virtual void Prepare2D(); // Flags für Rendern einstellen
     virtual void Restore3D(); // Flags zurücksetzen
-    // effects
-    static void setFog(bool enable = false);
+    // effects -> deklarien in FXExtensions
+    //static void setFog(bool enable = false);
+    SDL_Window *getWindow() const;
+    void setWindow(SDL_Window *newWindow);
 
-    void fogParam();    
+    SDL_GLContext getMaincontext() const;
+    void setMaincontext(SDL_GLContext newMaincontext);
+
 protected:
+    Logger logger;
     std::vector<std::string> split(std::string const& input, std::string const& separator);
     //----------------------------------
     // Look and feel
     //----------------------------------
     virtual void Render();
-    virtual void RenderSkyBox();
-    virtual void RenderLight();
-    virtual void RenderCockpit();
     virtual void Render2D();
 
     virtual void Render2DUserObject();
-    virtual void RenderControlls();
-
     virtual void SetResolution(int resx,int resy);
     virtual bool HandleMessage();
     virtual void InitEngineObject();
     virtual void InitUserObjects();
-    virtual void InitSkyBox();
 
     void SetClearColor(float r, float g, float b, float a);
     void setClearColor(float r, float g, float b);
     void toogleFullScreen();
-
     void LoadConfiguration();
-    void InitFX();
-    static void toggleAnimation();
-    static void toogleCockpit();
-    static void toggleBlend();
-    static void togglePanel2D();
-    static void toggleSkyBox();
     static bool toggleVal(bool val); 
     static void QuitStatic();
 
     // HandlerFuncs for Mouse
-    virtual void OnMouseMove(int &x, int &y, uint32 buttonstate);
+    virtual void OnMouseMove(int &x, int &y, Uint32 buttonstate);
     virtual void OnLeftMouseButtonUp(int &x, int &y);
     virtual void OnLeftMouseButtonDown( int &x, int &y);
 
@@ -116,55 +88,22 @@ protected:
     // ---------------------------------
     void add2List(BaseObject * obj, ShaderType s);
     void add2Dobject(Base2D * obj);
-    void addButton(CButton* obj);
+    //void addButton(CButton* obj);
     virtual void ShowFramesPerSec();
     virtual void ShowCameraPos();
 
-    bool hasSkyBox();
-    void setHasSkybox(bool enable);
-
-    //----------------------------------
-    // Main Menu
-    // ---------------------------------
-    CMenu* MainMenu;
-    bool showMenu;
-
-    Logger logger;
-
-
-    // Flags for effects:
-    bool _Fog;
-    bool _HasSkyBox;
     bool _UseBlinn;
     void safeDelete(BaseObject * bo);
 
-    CSphere *sphere1;
-    CSphere *lightSource;   // Damit wir wissen wo die ichtquekke wirjkich  ist
-
-    //LandScape * land;
-
     Base2D * base2d;
     Camera * camera;  // = View !!
-    SkyBox * skybox;
 
     fileUtil * filestream = nullptr;
     Projection * projection;
-    TextRender * MousePositions;
-    TextRender * _Frames;
-    light * ambientLight = nullptr;
-
-    // Cockpit:
-    Cockpit * cockpit;
-    PartikelEngine * PE;
-
     // Liste für 3D objekte
     std::vector<BaseObject*> list3D;
     // Liste für die 2D Objekte
     std::vector<Base2D *> objects2D;
-    // Eine Button liste
-    std::vector<CButton*>  buttons;
-    //Liste für Textfelder
-    std::vector<TextRender*> textfields;
 
     // Members for navigating with the  mouse...
     MOUSE _Mouse;
@@ -191,8 +130,7 @@ protected:
     GLuint lighttexture_shader;
     // Derzeit noch nicht verwendbar !!!
     GLuint line2DShader;
-
-    GLuint textfeldshader, textshader;
+   // GLuint textfeldshader, textshader;
     ShaderType _CurrentShader;
 
     bool _ShaderChanged;
@@ -203,9 +141,7 @@ protected:
     bool _ShowFramesPerSecond   = false;
     bool _ShowMousePositions    = false;
     bool _ShowCameraPos         = false;
-
     uint32_t _Elapsed;
-
 
     // Global Resolution vars
     int _ResX;
@@ -216,7 +152,6 @@ protected:
     std::string caption;
     FLOAT4 _ClearColor;
 
-
     const std::string MAIN_CFG = PATH::ROOT +"config/Engine/engine.cfg";
     const std::string SPACE = " ";
 
@@ -225,11 +160,8 @@ protected:
     const int  FULLSCREEN_WIDTH = 3200;//1680.0f//1920.0f
     const int  FULLSCREEN_HEIGHT = 1800;//1050.0f//1200.0f
 
-
     SDL_Event       _Event;
     bool _LockClick = false;
-  //  C3DSLoad * load3DS;
-
 private:
 
 
@@ -248,12 +180,4 @@ private:
     SDL_DisplayMode DesktopDisplayMode;
     SDL_DisplayMode newDisplayMode;
 };
-
-// -------------------------------------
-// Abgeleitete Testklsse
-// --------------------------------------
-
-
-
-
 #endif // INIT_H
